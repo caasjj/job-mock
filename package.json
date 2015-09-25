@@ -1,6 +1,6 @@
 {
   "name": "job-mock",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Package to create mock async jobs",
   "main": "index.js",
   "scripts": {
