@@ -9,13 +9,23 @@ b. fail with certainty
 c. fail with some probability
 d. get cancelled before completion/failure
 
-For example, you might to mock up a whole bunch of emails to test a mail queue. Or, you want  to test your promise code and you want to run it against a bunch of promise generating async tasks that may or may not fails.
+For example, you might to mock up a whole bunch of emails to test a mail queue. Or, you want to test your promise 
+code and you want to run it against a bunch of promise generating async tasks that may or may not fails.
 
 This library provides a simple abstraction to perform the above.
 
+## Installation
+
+`npm install job-mock`
+
+The package is written in ES2015 and can be compiled to ES5 using `npm run compile`. This step is run automatically
+on installation.
+
 ## Example
 
-The following will generate a job named `email` that will complete in `100ms` without fail.  On completion, it resolves to the return value of `fn`, which will be executed in the context of `job` with whatever parameters are passed to `job.run(//params)`.
+The following will generate a job named `email` that will complete in `100ms` without fail.  On completion, it 
+resolves to the return value of `fn`, which will be executed in the context of `job` with whatever parameters are 
+passed to `job.run(//params)`.
 
     let Job = require('job-mock')
     
@@ -52,7 +62,8 @@ A job can be canceled before it completes, but only if it is already running
     
 Trying to cancel a job that has not started or has already terminated will return `false`, but not generate any errors.
 
-You can also cause a job to fail with a certain probability by setting `failProb`. The value `0` (default) guarantees the job will complete (assuming the function itself does not throw), and a value `1` guarantees it will fail.
+You can also cause a job to fail with a certain probability by setting `failProb`. The value `0` (default) guarantees 
+the job will complete (assuming the function itself does not throw), and a value `1` guarantees it will fail.
 
 	let Job = require('job')
 	let emailMessages = [ { //emailMsg }, { //emailMsg } ... { // emailMsg } ] // emailMessages.length=1000
@@ -85,7 +96,8 @@ You can also cause a job to fail with a certain probability by setting `failProb
 
 ###### Read-only properties
 
-* `name` - a string represation of the job, consisting of `{name}_{id}`, where `name` is provided to constructor and `id` is internally generated (and stored in `id`
+* `name` - a string represation of the job, consisting of `{name}_{id}`, where `name` is provided to constructor and 
+`id` is internally generated (and stored in `id`
 * `startTime` - timestamp for when task started running
 * `doneTime` - timestamp for when task completed, or `null` if failed or cancelled
 * `failTime` - timestamp for when task failed, or `null` if completed or cancelled
@@ -95,4 +107,12 @@ You can also cause a job to fail with a certain probability by setting `failProb
 
 ## Logging and Debugging
 
-You can pass a logging function (e.g. `Winston.info`) to `job.startLog` to start the logger, or invoke `job.stopLog()` to stop the debug logger.
+You can pass a logging function (e.g. `Winston.info`) to `job.startLog` to start the logger, or invoke `job.stopLog()` 
+to stop the debug logger.
+
+## Tests
+
+The package and its tests are written in ES2015, with scripts to compile to ES5. To run the tests,
+
+    npm install // in same directory as module's `package.json`
+    npm test    // will compiles tests using Babel and execute the tests
