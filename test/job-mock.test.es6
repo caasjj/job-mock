@@ -1,6 +1,6 @@
 "use strict";
 var expect = require( 'chai' ).expect
-var Job = require( 'job-mock' )
+var Job = require( '../index.js' )
 var colors = require('colors')
 var Promise = require('bluebird')
 
